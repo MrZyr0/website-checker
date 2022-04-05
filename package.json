@@ -8,6 +8,15 @@
   },
   "type": "module",
   "dependencies": {
+    "chalk": "^5.0.1",
+    "commander": "^9.1.0",
+    "fs": "^0.0.1-security",
+    "img-diff-js": "^0.5.2",
+    "inquirer": "^8.2.2",
+    "lodash-es": "^4.17.21",
+    "puppeteer": "^13.5.2",
+    "website-checker": "link:",
+    "xml2js": "^0.4.23"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
