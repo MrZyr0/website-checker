@@ -1,0 +1,25 @@
+{
+  "name": "website-checker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "bin/index.js",
+  "bin": {
+    "website-checker": "bin/index.js"
+  },
+  "type": "module",
+  "dependencies": {
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrZyr0/website-checker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrZyr0/website-checker/issues"
+  },
+  "homepage": "https://github.com/MrZyr0/website-checker#readme"
+}
