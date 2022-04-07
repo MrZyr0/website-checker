@@ -116,6 +116,19 @@ program
     writeFileSync(`${saveDirPath}/site-urls.json`, JSON.stringify(siteUrls));
   });
 
+program
+  .command("check-page-ressources-loading")
+  .description("Check all request status for a page")
+  .option(
+    "--ignore-certificate-errors",
+    "allow any SSL certificate for the website",
+    false
+  )
+  .argument("<url>", "url to check")
+  .action(async (url) => {
+    await checkRessourceLoading(url);
+  });
+
 program.parse();
 
 // TODO: Create and compare check bad ressource loading (other than 2XX) using reports

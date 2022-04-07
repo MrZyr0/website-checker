@@ -90,3 +90,47 @@ export async function takeScreenshots(...urls) {
     return { screenshotsDate: now };
   }
 }
+
+export async function checkRessourceLoading(...urls) {
+  const browser = await puppeteer.launch({
+    args: ["---ignore-certificate-errors"], // TODO: If --ssl-insecure option used
+  });
+  const page = await browser.newPage();
+  await page.setRequestInterception(true);
+
+  page.on("request", (interceptedRequest) => {
+    if (interceptedRequest.isInterceptResolutionHandled()) return;
+    console.log({ interceptedRequest });
+    interceptedRequest.continue();
+  });
+
+  try {
+    console.log(`[checkRessourceLoading] browser up and ready`);
+
+    for (let index = 0; index < urls.length; index++) {
+      const currentUrl = urls[index];
+
+      console.log(
+        `[checkRessourceLoading] (${index + 1}/${
+          urls.length
+        }) processing url: ${currentUrl}`
+      );
+
+      console.log("WIP GO !");
+
+      await page.goto(currentUrl, {
+        timeout: 60000,
+        waitUntil: "networkidle0",
+      });
+
+      console.log("WIP LAST");
+
+      // TODO: add script to check script all finish to run
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    await browser.close();
+    console.log(`[checkRessourceLoading] browser stoped`);
+  }
+}
