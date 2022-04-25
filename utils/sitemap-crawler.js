@@ -1,7 +1,8 @@
-import { get } from "lodash-es";
+import { chain, get } from "lodash-es";
 import xml2js from "xml2js";
 
 const userAgent = "Mozilla/5.0 (compatible; Webcheckerbot/0.1)";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0"; // Only if --ssl-insecure option used
 
 function parseXml(xml) {
   return new Promise((resolve, reject) => {
@@ -38,10 +39,14 @@ export async function sitemapCrawler(sitemapUrl) {
     get(parsedXml, "sitemapindex.sitemap")
   );
 
+  if (!sitemap) {
+    return;
+  }
+
   const sitemapUrls = getAllUrlFromJsonSitemap(sitemap);
 
   if (!sitemapUrls) {
-    return undefined;
+    return;
   }
 
   const otherSitemaps = sitemapUrls.filter((url) => url.includes("sitemap"));
@@ -61,5 +66,5 @@ export async function sitemapCrawler(sitemapUrl) {
     otherSitemapsUrls,
   ];
 
-  return allSiteUrls.flat(1000);
+  return chain(allSiteUrls).flattenDeep().compact().value();
 }
